@@ -93,7 +93,7 @@ function createGenresTask (callback) {
   },
   function (err) {
     if (err) return callback(err, null)
-    return callback(null, 'createGenres OK')
+    callback(null, 'createGenres OK')
   })
 }
 
@@ -123,7 +123,7 @@ function createWork (rank, data, callback) {
       if (err) { return callback(err, null) }
       console.log('+ saved work:', work)
       workIds[rank] = id
-      return callback(null, id)
+      callback(null, id)
     })
   })
 }
@@ -142,7 +142,7 @@ function createWorksTask (callback) {
   },
   function (err) {
     if (err) return callback(err, null)
-    return callback(null, 'createWorks OK')
+    callback(null, 'createWorks OK')
   })
 }
 
@@ -160,16 +160,17 @@ function createList (doc, callback) {
       List.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
         console.log('+ updated list:', doc)
-        return callback(null, 'createList ' + JSON.stringify(res))
+        callback(null, 'createList ' + JSON.stringify(res))
       })
-    } else {
-      var list = new List(doc)
-      list.save(function (err) {
-        if (err) { return callback(err, null) }
-        console.log('+ saved list:', list)
-        return callback(null, list._id)
-      })
+      return
     }
+
+    var list = new List(doc)
+    list.save(function (err) {
+      if (err) { return callback(err, null) }
+      console.log('+ saved list:', list)
+      callback(null, list._id)
+    })
   })
 }
 
