@@ -68,14 +68,11 @@ function createGenre (name, callback) {
     var id = new mongoose.Types.ObjectId()
     var genre = new Genre({_id: id, name: name})
 
-    genre.save(function (err) {
-      if (err) {
-        callback(err, null)
-      } else {
-        console.log('+ saved genre:', genre)
-        genreIds.push(id)
-        callback(null, id)
-      }
+    genre.save(function (err, callback) {
+      if (err) { return callback(err, null) }
+      console.log('+ saved genre:', genre)
+      genreIds.push(id)
+      callback(null, id)
     })
   })
 }
@@ -160,9 +157,9 @@ function createList (doc, callback) {
       List.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
         console.log('+ updated list:', doc)
-        callback(null, 'createList ' + JSON.stringify(res))
+        return callback(null, 'createList ' + JSON.stringify(res))
       })
-      return
+      return // by the devil's hoofs!
     }
 
     var list = new List(doc)
