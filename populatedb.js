@@ -90,7 +90,7 @@ function createGenresTask (callback) {
   },
   function (err) {
     if (err) return callback(err, null)
-    callback(null, 'createGenres OK')
+    callback(null, genreIds)
   })
 }
 
@@ -139,7 +139,7 @@ function createWorksTask (callback) {
   },
   function (err) {
     if (err) return callback(err, null)
-    callback(null, 'createWorks OK')
+    callback(null, workIds)
   })
 }
 
@@ -157,7 +157,7 @@ function createList (doc, callback) {
       List.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
         console.log('+ updated list:', doc)
-        return callback(null, 'createList ' + JSON.stringify(res))
+        return callback(null, JSON.stringify(res))
       })
       return // by the devil's hoofs!
     }
@@ -186,7 +186,7 @@ mongoose.Promise = global.Promise
 
 var db = mongoose.connection
 
-db.on('error', console.error.bind(console, 'Connection error:'))
+db.on('error', console.error.bind(console, 'MongoDB Connection Error:'))
 
 db.once('open', function () {
   async.series([
@@ -195,8 +195,8 @@ db.once('open', function () {
     createListTask
   ],
   function (err, result) {
-    if (err) console.log('ERRFIN: ', err)
-    if (result) console.log(result)
+    if (err) console.log('Final Error: ', err)
+    if (result) console.log('Final result:', result)
     console.log('Done.')
     mongoose.disconnect()
   })
