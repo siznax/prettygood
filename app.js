@@ -23,7 +23,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 // app
 var app = express()
 
-// views
+// views/templates
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
