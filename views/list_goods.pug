@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each good in data
+      li
+        a(href='/catalog/goods/' + good.id) #{good.title}
+        | (#{good.year}) #{good.source}
+
+    else
+      li There are no goods.

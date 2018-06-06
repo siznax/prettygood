@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+
+  if error
+    p Error getting counts
+  else
+    p Contents
+    ul
+      li
+        a(href='/catalog/goods') #[strong Goods]&nbsp;
+        |(!{data.goodsCount})
+      li
+        a(href='/catalog/works') #[strong Works]&nbsp;
+        |(!{data.workCount})
+      li
+        a(href='/catalog/genres') #[strong Genres]&nbsp;
+        |(!{data.genreCount})

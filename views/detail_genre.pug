@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 Genre: #{genre.name}
+
+  ul
+    each good in genre_goods
+      li
+        a(href='/catalog/goods/' + good._id) #{good.title}

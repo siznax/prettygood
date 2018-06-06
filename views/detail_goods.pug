@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Goods: #{goods.title}
+
+  p #{goods}
+  
+  p <b>title:</b> #{goods.title}
+  p <b>source:</b> #{goods.source}
+  p <b>year:</b> #{goods.year}
+
+  p <b>genre:</b>&nbsp;
+    each name in genres
+      a(href='/catalog/genre/' + name) #{name}
+      |&nbsp;
+
+  p <b>works:</b>&nbsp;
+    |#{works}
