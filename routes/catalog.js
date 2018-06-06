@@ -1,27 +1,27 @@
 var express = require('express')
 var router = express.Router()
 
-var listController = require('../controllers/listController')
+var goodsController = require('../controllers/goodsController')
 var workController = require('../controllers/workController')
 var genreController = require('../controllers/genreController')
 
-// LIST routes
+// GOODS routes
 
-router.get('/', listController.index) // GET catalog home page.
+router.get('/', goodsController.index) // GET catalog home page.
 
-router.get('/list/create', listController.listCreateGet)
-router.post('/list/create', listController.listCreatePost)
+router.get('/goods/create', goodsController.goodsCreateGet)
+router.post('/goods/create', goodsController.goodsCreatePost)
 
-// NOTE: /list/:id/delete,update pairs must come before /list/:id
+// NOTE: /goods/:id/delete,update pairs must come before /goods/:id
 
-router.get('/list/:id/delete', listController.listDeleteGet)
-router.post('/list/:id/delete', listController.listDeletePost)
+router.get('/goods/:id/delete', goodsController.goodsDeleteGet)
+router.post('/goods/:id/delete', goodsController.goodsDeletePost)
 
-router.get('/list/:id/update', listController.listUpdateGet)
-router.post('/list/:id/update', listController.listUpdatePost)
+router.get('/goods/:id/update', goodsController.goodsUpdateGet)
+router.post('/goods/:id/update', goodsController.goodsUpdatePost)
 
-router.get('/list/:id', listController.listDetail)
-router.get('/lists', listController.listList)
+router.get('/goods/:id', goodsController.goodsDetail)
+router.get('/goods', goodsController.goodsList)
 
 // WORK routes
 
