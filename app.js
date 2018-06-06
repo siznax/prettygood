@@ -11,7 +11,7 @@ var catalogRouter = require('./routes/catalog')
 
 // Set up mongoose connection
 var mongoose = require('mongoose')
-var mongoDB = 'mongodb://localhost:27017'
+var mongoDB = 'mongodb://localhost/prettygood'
 
 mongoose.connect(mongoDB)
 mongoose.Promise = global.Promise
