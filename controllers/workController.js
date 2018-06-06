@@ -1,10 +1,19 @@
 // WORK route handlers
 
-var work = require('../models/work')
+var Work = require('../models/work')
 
-exports.workList = function (req, res) {
-  res.send('Display list of works')
+exports.workList = function (req, res, next) {
+  Work.find({}, 'title year creator')
+    .sort([['year', 'descending']])
+    .exec(function (err, works) {
+      if (err) { return next(err) }
+      res.render('list_works', {
+        title: 'List of Works',
+        data: works
+      })
+    })
 }
+
 exports.workDetail = function (req, res) {
   res.send('work detail: ' + req.params.id)
 }

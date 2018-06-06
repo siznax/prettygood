@@ -33,7 +33,17 @@ exports.goodsList = function (req, res, next) {
 }
 
 exports.goodsDetail = function (req, res, next) {
-  res.send('goods detail')
+  Goods.findById(req.params.id)
+    .populate('genre')
+    .exec(function (err, goods) {
+      if (err) { return next(err) }
+      res.render('detail_goods', {
+        title: 'Goods Detail',
+        goods: goods,
+        genres: goods.genre.map(x => x.name),
+        works: goods.works
+      })
+  })
 }
 
 exports.goodsCreateGet = function (req, res) {
