@@ -12,12 +12,12 @@ var mongoose = require('mongoose')
 
 var Genre = require('./models/genre')
 var Work = require('./models/work')
-var List = require('./models/list')
+var Goods = require('./models/goods')
 
 var genreIds = []
 var workIds = {}
 
-var listData = {
+var goodsData = {
   'mediatype': 'book',
   'source': 'Google search',
   'url': 'https://www.google.com/search?q=top+classic+books',
@@ -81,11 +81,11 @@ function createGenresTask (callback) {
   console.log('createGenres')
 
   // async.parallel([
-  //   function (cb) { createGenre(listData.genre[0], cb) },
-  //   function (cb) { createGenre(listData.genre[1], cb) }
+  //   function (cb) { createGenre(goodsData.genre[0], cb) },
+  //   function (cb) { createGenre(goodsData.genre[1], cb) }
   // ], callback)
 
-  async.each(listData.genre, function (genre, callback) {
+  async.each(goodsData.genre, function (genre, callback) {
     createGenre(genre, callback)
   },
   function (err) {
@@ -112,7 +112,7 @@ function createWork (rank, data, callback) {
 
     var id = new mongoose.Types.ObjectId()
     data._id = id
-    data.mediatype = listData.mediatype
+    data.mediatype = goodsData.mediatype
     data.genre = genreIds
     var work = new Work(data)
 
@@ -129,12 +129,12 @@ function createWorksTask (callback) {
   console.log('createWorks')
 
   // async.parallel([
-  //   function (cb) { createWork(1, listData.works['1'], cb) },
-  //   function (cb) { createWork(2, listData.works['2'], cb) },
-  //   function (cb) { createWork(3, listData.works['3'], cb) }
+  //   function (cb) { createWork(1, goodsData.works['1'], cb) },
+  //   function (cb) { createWork(2, goodsData.works['2'], cb) },
+  //   function (cb) { createWork(3, goodsData.works['3'], cb) }
   // ], callback)
 
-  async.eachOf(listData.works, function (work, index, callback) {
+  async.eachOf(goodsData.works, function (work, index, callback) {
     createWork(index, work, callback)
   },
   function (err) {
@@ -143,40 +143,40 @@ function createWorksTask (callback) {
   })
 }
 
-function createList (doc, callback) {
+function createGoods (doc, callback) {
   var terms = {
     title: doc.title,
     source: doc.source,
     year: doc.year
   }
 
-  List.findOne(terms, function (err, found) {
+  Goods.findOne(terms, function (err, found) {
     if (err) { return callback(err, null) }
 
     if (found) {
-      List.updateOne(terms, doc, function (err, res) {
+      Goods.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
-        console.log('+ updated list:', doc)
+        console.log('+ updated goods:', doc)
         return callback(null, JSON.stringify(res))
       })
       return // by the devil's hoofs!
     }
 
-    var list = new List(doc)
-    list.save(function (err) {
+    var goods = new Goods(doc)
+    goods.save(function (err) {
       if (err) { return callback(err, null) }
-      console.log('+ saved list:', list)
-      callback(null, list._id)
+      console.log('+ saved goods:', goods)
+      callback(null, goods._id)
     })
   })
 }
 
-function createListTask (callback) {
-  console.log('createList')
-  var doc = listData
+function createGoodsTask (callback) {
+  console.log('createGoods')
+  var doc = goodsData
   doc.genre = genreIds
   doc.works = workIds
-  createList(doc, callback)
+  createGoods(doc, callback)
 }
 
 var mongodb = 'mongodb://localhost/prettygood'
@@ -192,7 +192,7 @@ db.once('open', function () {
   async.series([
     createGenresTask,
     createWorksTask,
-    createListTask
+    createGoodsTask
   ],
   function (err, result) {
     if (err) console.log('Final Error: ', err)
