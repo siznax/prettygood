@@ -7,7 +7,7 @@ block content
     each good in data
       li
         a(href='/catalog/goods/' + good.id) #{good.title}
-        | (#{good.year}) #{good.source}
+        |  (#{good.year}) #{good.source}
 
     else
       li There are no goods.
