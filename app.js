@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // node libraries
 var createError = require('http-errors')
 var express = require('express')
@@ -22,6 +24,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 // app
 var app = express()
+app.locals.env = {...process.env}
 
 // views/templates
 app.set('views', path.join(__dirname, 'views'))
