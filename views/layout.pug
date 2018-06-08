@@ -14,11 +14,11 @@ html(lang='en')
         div(class='col-sm-2')
           div
             block sidebar
-              p.
-                #[a(href='/catalog') Catalog] #[br]
-                #[a(href='/catalog/goods') Goods] #[br]
-                #[a(href='/catalog/genres') Genres] #[br]
-                #[a(href='/catalog/works') Works] #[br]
-                #[a(href='/catalog/goods/create') New]
-        div(class='col-sm-10')
+              nav(class='nav flex-column my-3')
+                a(class='nav-link' href='/catalog') Catalog
+                a(class='nav-link' href='/catalog/goods') Goods
+                a(class='nav-link' href='/catalog/genres') Genres
+                a(class='nav-link' href='/catalog/works') Works
+                a(class='nav-link' href='/catalog/goods/create') New
+        div(class='col-sm-10 p-3')
           block content
