@@ -18,12 +18,13 @@ var genreIds = []
 var workIds = {}
 
 var goodsData = {
-  'mediatype': 'book',
-  'source': 'Google search',
+  'mediatype': 'books',
+  'description': 'Classic books ranked by Google',
   'url': 'https://www.google.com/search?q=top+classic+books',
+  'source': 'Google Search',
+  'year': '2018',
   'title': 'Google Top Classic Books',
   'genre': ['Literature', 'Fiction', 'Classics'],
-  'year': '2018',
   'works': {
     1: {
       'title': 'Nineteen Eighty-Four',
@@ -68,7 +69,7 @@ function createGenre (name, callback) {
     var id = new mongoose.Types.ObjectId()
     var genre = new Genre({_id: id, name: name})
 
-    genre.save(function (err, callback) {
+    genre.save(function (err) {
       if (err) { return callback(err, null) }
       console.log('+ saved genre:', genre)
       genreIds.push(id)
@@ -173,10 +174,9 @@ function createGoods (doc, callback) {
 
 function createGoodsTask (callback) {
   console.log('createGoods')
-  var doc = goodsData
-  doc.genre = genreIds
-  doc.works = workIds
-  createGoods(doc, callback)
+  goodsData.genre = genreIds
+  goodsData.works = workIds
+  createGoods(goodsData, callback)
 }
 
 var mongodb = 'mongodb://localhost/prettygood'
