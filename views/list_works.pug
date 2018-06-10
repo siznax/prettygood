@@ -2,12 +2,11 @@ extends layout
 
 block content
   h1= title
-
-  ul
-    each work in data
-      li
-        a(href='/catalog/work/' + work.id) #{work.title} 
-        | (#{work.year}) #{work.creator}
-
-    else
-      li There are no goods.
+  p
+    ul
+      each work in data
+        li.
+          #[a(href='/catalog/work/' + work.id) #{work.title}]
+          (#{work.year}) #{work.creator}
+      else
+        li There are no goods.

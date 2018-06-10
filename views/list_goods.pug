@@ -2,12 +2,12 @@ extends layout
 
 block content
   h1= title
+  p
+    ul
+      each good in data
+        li.
+          #[a(href='/catalog/goods/' + good.id) #{good.title}]
+          (#{good.year}) #{good.source}
 
-  ul
-    each good in data
-      li
-        a(href='/catalog/goods/' + good.id) #{good.title}
-        |  (#{good.year}) #{good.source}
-
-    else
-      li There are no goods.
+      else
+        li There are no goods.
