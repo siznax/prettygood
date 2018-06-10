@@ -41,8 +41,8 @@ exports.goodsDetail = function (req, res, next) {
         .exec(function (err, goods) {
           if (err || !goods) {
             var notfound = new Error()
-            err.status = 404
-            err.message = 'Could not find the goods: ' + req.params.id
+            notfound.status = 404
+            notfound.message = 'Could not find the goods: ' + req.params.id
             return next(notfound)
           }
           callback(null, goods)
