@@ -13,7 +13,7 @@ exports.workList = function (req, res, next) {
     },
     film: function (callback) {
       Works.find({mediatype: 'film'}).exec(callback)
-    },
+    }
   },
   function (err, results) {
     if (err) { return next(err) }
