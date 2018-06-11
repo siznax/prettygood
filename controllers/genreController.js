@@ -3,6 +3,7 @@
 var async = require('async')
 var Genre = require('../models/genre')
 var Goods = require('../models/goods')
+var Work = require('../models/work')
 
 exports.genreList = function (req, res, next) {
   Genre.find({}, 'name')
@@ -17,27 +18,43 @@ exports.genreList = function (req, res, next) {
 }
 
 exports.genreDetail = function (req, res, next) {
-  async.parallel({
-    genre: function (callback) {
-      Genre.findById(req.params.id).exec(callback)
+  async.waterfall([
+    function (callback) {
+      Genre
+        .find({name: req.params.name})
+        .exec(function (err, genre) {
+          if (err) { return next(err) }
+          callback(null, genre[0])
+        })
     },
-    genre_goods: function (callback) {
-      Goods.find({'genre': req.params.id}).exec(callback)
+    function (genre, callback) {
+      Goods
+        .find({genre: genre._id})
+        .exec(function (err, goods) {
+          if (err) { return next(err) }
+          callback(null, genre, goods)
+        })
     },
-  }, function (err, results) {
-    if (err) { return next(err) }
-    if (results.genre == null) {
-      var err = 'Genre not found'
-      err.status = 404
-      return next(err)
+    function (genre, goods, callback) {
+      Work
+        .find({genre: genre._id})
+        .exec(function (err, works) {
+          if (err) { return next(err) }
+          callback(null, {'genre': genre, 'goods': goods, 'works': works})
+        })
     }
+  ],
+  function (err, results) {
+    if (err) { return next(err) }
     res.render('detail_genre', {
-      title: 'Genre Details',
+      title: 'Genre detail',
       genre: results.genre,
-      genre_goods: results.genre_goods
+      goods: results.goods,
+      works: results.works
     })
   })
 }
+
 exports.genreCreateGet = function (req, res) {
   res.send('genre create form')
 }

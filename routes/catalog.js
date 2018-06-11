@@ -52,7 +52,7 @@ router.post('/genre/:id/delete', genreController.genreDeletePost)
 router.get('/genre/:id/update', genreController.genreUpdateGet)
 router.post('/genre/:id/update', genreController.genreUpdatePost)
 
-router.get('/genre/:id', genreController.genreDetail)
+router.get('/genre/:name', genreController.genreDetail)
 router.get('/genres', genreController.genreList)
 
 module.exports = router

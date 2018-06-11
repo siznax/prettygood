@@ -6,6 +6,6 @@ block content
     ul
       each genre in data
         li
-          a(href='/catalog/genre/' + genre.id) #{genre.name}
+          a(href='/catalog/genre/' + genre.name) #{genre.name}
       else
         li There are no genres.
