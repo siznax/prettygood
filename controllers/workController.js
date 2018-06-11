@@ -1,21 +1,31 @@
 // WORK route handlers
 
-var Work = require('../models/work')
+var async = require('async')
+var Works = require('../models/work')
 
 exports.workList = function (req, res, next) {
-  Work.find({}, 'title year creator')
-    .sort([['year', 'descending']])
-    .exec(function (err, works) {
-      if (err) { return next(err) }
-      res.render('list_works', {
-        title: 'List of Works',
-        data: works
-      })
+  async.parallel({
+    albums: function (callback) {
+      Works.find({mediatype: 'albums'}).exec(callback)
+    },
+    books: function (callback) {
+      Works.find({mediatype: 'books'}).exec(callback)
+    },
+    film: function (callback) {
+      Works.find({mediatype: 'film'}).exec(callback)
+    },
+  },
+  function (err, results) {
+    if (err) { return next(err) }
+    res.render('list_works', {
+      title: 'List of Works',
+      data: results
     })
+  })
 }
 
 exports.workDetail = function (req, res, next) {
-  Work
+  Works
     .findById(req.params.id)
     .exec(function (err, result) {
       if (err) { return next(err) }
