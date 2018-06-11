@@ -14,8 +14,16 @@ exports.workList = function (req, res, next) {
     })
 }
 
-exports.workDetail = function (req, res) {
-  res.send('work detail: ' + req.params.id)
+exports.workDetail = function (req, res, next) {
+  Work
+    .findById(req.params.id)
+    .exec(function (err, result) {
+      if (err) { return next(err) }
+      res.render('detail_work', {
+        title: 'Work detail',
+        work: result
+      })
+    })
 }
 exports.workCreateGet = function (req, res) {
   res.send('work create form')
