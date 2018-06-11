@@ -40,9 +40,8 @@ exports.goodsDetail = function (req, res, next) {
         .populate('genre')
         .exec(function (err, goods) {
           if (err || !goods) {
-            var notfound = new Error()
+            var notfound = new Error('Goods not found')
             notfound.status = 404
-            notfound.message = 'Could not find the goods: ' + req.params.id
             return next(notfound)
           }
           callback(null, goods)
