@@ -4,6 +4,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId
 module.exports = mongoose.model('Goods', {
   description: {type: String},
   genre: [{type: ObjectId, ref: 'Genre', required: true}],
+  image: String,
   mediatype: {type: String},
   source: {type: String, required: true},
   title: {type: String, required: true},
