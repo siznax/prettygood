@@ -25,24 +25,20 @@ block content
     dt(class="col-sm-2")  Description:
     dd(class="col-sm-10") #{goods.description}
 
-    dt(class="col-sm-2")  Image:
-    dd(class="col-sm-10") #{goods.image}
-
     dt(class="col-sm-2")  Url:
     dd(class="col-sm-10") #{goods.url}
+
+    dt(class="col-sm-2")  Image:
+    dd(class="col-sm-10") #{goods.image}
 
     dt(class="col-sm-2")  Genres:
     dd(class="col-sm-10")
       each name in genres
-        a(class="btn btn-info mr-1" role="button" href='/catalog/genre/' + name) #{name}
+        a.btn-sm.btn-info.mr-1(role='button' href='/catalog/genre/' + name) #{name}
 
     dt(class="col-sm-2")  Works:
     dd(class="col-sm-10")
-      each id, rank in ranks
-        div(class="media pb-3")
-          img(class="mr-3" src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"64"%20height%3D"96"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%2064%2096"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_163e1780daf%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_163e1780daf"><rect%20width%3D"64"%20height%3D"96"%20fill%3D"%23777"><%2Frect><g><text%20x%3D"13.84375"%20y%3D"36.5">64x96<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="placeholder image")
-          div(class="media-body")
-            h5(class="mt-0").
-              #{rank}. #[em #{works[id].title}]
-              (#{works[id].year}) #{works[id].creator}
-            p Description.
+      ol.px-3.py-2
+        each id, rank in ranks
+          li(value='#{rank}')
+            a(href='/catalog/work/' + id) #{works[id].title}
