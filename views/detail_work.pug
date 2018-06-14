@@ -1,29 +1,26 @@
 extends layout
 
 block content
-  h1 Work: #{work.title}
+  h1.mb-3 Work: #{work.title}
 
   dl(class="row")
-    dt(class="col-sm-2")  Title:
-    dd(class="col-sm-10") #{work.title}
+    dt.col-sm-2  Creator:
+    dd.col-sm-10 #{work.creator} (#{work.year})
 
-    dt(class="col-sm-2")  Year:
-    dd(class="col-sm-10") #{work.year}
+    dt.col-sm-2  Mediatype:
+    dd.col-sm-10 #{work.mediatype}
 
-    dt(class="col-sm-2")  Creator:
-    dd(class="col-sm-10") #{work.creator}
+    dt.col-sm-2  Language:
+    dd.col-sm-10 #{work.language}
 
-    dt(class="col-sm-2")  Mediatype:
-    dd(class="col-sm-10") #{work.mediatype}
+    if work.description
+      dt.col-sm-2  Description:
+      dd.col-sm-10 #{work.description}
 
-    dt(class="col-sm-2")  Language:
-    dd(class="col-sm-10") #{work.language}
+    if work.url
+      dt.col-sm-2  Url:
+      dd.col-sm-10 #{work.url}
 
-    dt(class="col-sm-2")  Description:
-    dd(class="col-sm-10") #{work.description}
-
-    dt(class="col-sm-2")  Url:
-    dd(class="col-sm-10") #{work.url}
-
-    dt(class="col-sm-2")  Image:
-    dd(class="col-sm-10") #{work.image}
+    if work.image
+      dt.col-sm-2  Image:
+      dd.col-sm-10 #{work.image}
