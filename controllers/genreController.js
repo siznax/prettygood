@@ -11,7 +11,7 @@ exports.genreList = function (req, res, next) {
     .exec(function (err, genres) {
       if (err) { return next(err) }
       res.render('list_genres', {
-        title: 'List of Genres',
+        title: 'Genres',
         data: genres
       })
     })

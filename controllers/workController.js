@@ -18,7 +18,7 @@ exports.workList = function (req, res, next) {
   function (err, results) {
     if (err) { return next(err) }
     res.render('list_works', {
-      title: 'List of Works',
+      title: 'Works',
       data: results
     })
   })

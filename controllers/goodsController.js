@@ -27,7 +27,7 @@ exports.goodsList = function (req, res, next) {
     .exec(function (err, goods) {
       if (err) { return next(err) }
       res.render('list_goods', {
-        title: 'List of Goods',
+        title: 'Goods',
         data: goods
       })
     })
@@ -80,7 +80,7 @@ exports.goodsDetail = function (req, res, next) {
 
 exports.goodsCreateGet = function (req, res, next) {
   res.render('create_goods', {
-    title: 'Create Goods',
+    title: 'New',
     validatejs: true
   })
 }
