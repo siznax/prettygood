@@ -1,17 +1,34 @@
-// https://getbootstrap.com/docs/4.1/components/forms/#validation
-// https://www.w3.org/TR/html5/sec-forms.html#statically-validating-the-constraints
-// https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation
+/**
+ * https://getbootstrap.com/docs/4.1/components/forms/#validation
+ * https://www.w3.org/TR/html5/sec-forms.html#statically-validating-the-constraints
+ * https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation
+ *
+ * siznax 2018
+ */
 
 (function () {
   'use strict'
 
-  var number = /^\d+$/
+  var numbers = /^\d+$/
+
+  function validateGenre () {
+    var input = document.getElementById('genre')
+    var genre = input.value
+    if (genre.split(',').length > 3) {
+      var err = 'Genre invalid: ' + genre
+      console.log(err)
+      input.setCustomValidity(err)
+    } else {
+      console.log('Genre okay: ' + genre)
+      input.setCustomValidity('')
+    }
+  }
 
   function validateYear () {
     var input = document.getElementById('year')
     var year = input.value
     var max = (new Date()).getFullYear() + 1
-    if (!number.test(year) || year > max) {
+    if (!numbers.test(year) || year > max) {
       var err = 'Year invalid: ' + year
       console.log(err)
       input.setCustomValidity(err)
@@ -23,6 +40,7 @@
 
   window.addEventListener('load', function () {
     document.getElementById('year').onchange = validateYear
+    document.getElementById('genre').onchange = validateGenre
 
     var forms = document.getElementsByClassName('needs-validation')
 

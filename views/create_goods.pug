@@ -8,8 +8,8 @@ block content
     div.form-row
       div.col.mb-3
         input#title.form-control.form-control-lg(type='text', name='title',
-          placeholder='Title', minlength='3', maxlength='80', required)
-        div.invalid-feedback 3-80 characters
+          placeholder='Title', minlength='2', maxlength='80', required)
+        div.invalid-feedback 2-80 characters
 
     div.form-row.mb-3
       div.col-md-4
@@ -40,15 +40,15 @@ block content
       div.input-group-prepend
         span.input-group-text Description
       input#description.form-control(type='text', name='description',
-        minlength='5', maxlength='140', placeholder='Optional description',
-        required)
-      div.invalid-feedback 5-140 characters
+        maxlength='140', placeholder='(optional)')
+      div.invalid-feedback 140 characters max
 
     div.input-group.mb-3
       div.input-group-prepend
         span.input-group-text Genre
-      input#description.form-control(type='text', name='genre',
-        placeholder='Fiction, Literature, etc.', required)
+      input#genre.form-control(type='text', name='genre',
+        placeholder='Literature, Science Fiction', minlength='2', maxlength='32', required)
+      div.invalid-feedback One to three comma separated values
 
     div.input-group.mb-3
       div.input-group-prepend
