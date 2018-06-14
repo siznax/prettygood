@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 Goods: #{goods.title}
+  h1 #{goods.title}
 
-  p #{goods.description}
+  p #[em #{goods.description}]
 
   dl(class="row")
     dt(class="col-sm-2")  Title:
@@ -34,7 +34,7 @@ block content
     dt(class="col-sm-2")  Genres:
     dd(class="col-sm-10")
       each name in genres
-        a.btn-sm.btn-info.mr-1(role='button' href='/catalog/genre/' + name) #{name}
+        a.btn-sm.btn.btn-outline-primary.mr-1(role='button' href='/catalog/genre/' + name) #{name}
 
     dt(class="col-sm-2")  Works:
     dd(class="col-sm-10")

@@ -2,11 +2,11 @@ extends layout
 
 block content
   h1= title
+
   if error
     p Error getting counts
   else
-    p.
-      Contents:
-      #[a(href='/catalog/goods') Goods] (!{data.goodsCount})
-      #[a(href='/catalog/genres') Genres] (!{data.genreCount})
-      #[a(href='/catalog/works') Works] (!{data.workCount})
+    ul
+      li #[a(href='/catalog/goods') Goods] (!{data.goodsCount})
+      li #[a(href='/catalog/genres') Genres] (!{data.genreCount})
+      li #[a(href='/catalog/works') Works] (!{data.workCount})

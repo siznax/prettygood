@@ -2,27 +2,27 @@ extends layout
 
 block content
   h1= title
+  p.m-3
+    p #[b Albums]
+    ul
+      each work in data.albums
+        li.
+          #[a(href='/catalog/work/' + work.id) #{work.title}]
+      else
+        li There are no albums.
 
-  h3 Albums
-  ul
-    each work in data.albums
-      li.
-        #[a(href='/catalog/work/' + work.id) #{work.title}]
-    else
-      li There are no albums.
+    p #[b Books]
+    ul
+      each work in data.books
+        li.
+          #[a(href='/catalog/work/' + work.id) #{work.title}]
+      else
+        li There are no books.
 
-  h3 Books
-  ul
-    each work in data.books
-      li.
-        #[a(href='/catalog/work/' + work.id) #{work.title}]
-    else
-      li There are no books.
-
-  h3 Films
-  ul
-    each work in data.film
-      li.
-        #[a(href='/catalog/work/' + work.id) #{work.title}]
-    else
-      li There are no films.
+    p #[b Films]
+    ul
+      each work in data.film
+        li.
+          #[a(href='/catalog/work/' + work.id) #{work.title}]
+      else
+        li There are no films.
