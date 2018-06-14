@@ -1,11 +1,11 @@
 // GOODS route handlers
 
-var Goods = require('../models/goods')
-var Work = require('../models/work')
-var Genre = require('../models/genre')
-
 var async = require('async')
 var mongoose = require('mongoose')
+
+const Goods = require('../models/goods')
+const Work = require('../models/work')
+const Genre = require('../models/genre')
 
 exports.index = function (req, res) {
   async.parallel({
@@ -78,10 +78,17 @@ exports.goodsDetail = function (req, res, next) {
   })
 }
 
-exports.goodsCreateGet = function (req, res) {
-  res.send('goods create form')
+exports.goodsCreateGet = function (req, res, next) {
+  res.render('create_goods', {
+    title: 'Create Goods',
+    validatejs: true
+  })
 }
+
 exports.goodsCreatePost = function (req, res) {
+  const {body,validationResult} = require('express-validator/check')
+  const {sanitizeBody} = require('express-validator/filter')
+
   res.send('goods create POST')
 }
 exports.goodsDeleteGet = function (req, res) {
