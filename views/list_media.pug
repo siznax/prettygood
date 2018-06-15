@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1.mb-3 #{title}
+
+  ul
+    each work in data
+      li #[a(href='/catalog/work/' + work._id) #{work.title}]
