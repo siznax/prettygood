@@ -1,27 +1,40 @@
-// WORK route handlers
-
 var async = require('async')
 var Works = require('../models/work')
 
-exports.workList = function (req, res, next) {
+exports.worksList = function (req, res, next) {
   async.parallel({
-    albums: function (callback) {
-      Works.find({mediatype: 'albums'}).exec(callback)
-    },
-    books: function (callback) {
-      Works.find({mediatype: 'books'}).exec(callback)
-    },
-    film: function (callback) {
-      Works.find({mediatype: 'film'}).exec(callback)
-    }
+    albums: function (cb) {Works.count({mediatype: 'albums'}, cb)},
+    books: function (cb) {Works.count({mediatype: 'books'}, cb)},
+    film: function (cb) {Works.count({mediatype: 'film'}, cb)}
   },
   function (err, results) {
     if (err) { return next(err) }
     res.render('list_works', {
       title: 'Works',
-      data: results
+      albums: results.albums,
+      books: results.books,
+      film: results.film
     })
   })
+}
+
+exports.worksMediatypeList = function (req, res, next) {
+  var mediatype = req.params.mediatype
+  if (['albums', 'books', 'film'].includes(mediatype)) {
+    Works
+      .find({mediatype: mediatype})
+      .exec(function (err, results) {
+        if (err) { return next(err) }
+        res.render('list_media', {
+          title: 'Works: ' + mediatype,
+          data: results
+        })
+      })
+  } else {
+    var err = new Error('Unknown mediatype: ' + mediatype)
+    err.status = 404
+    next(err)
+  }
 }
 
 exports.workDetail = function (req, res, next) {
@@ -34,22 +47,4 @@ exports.workDetail = function (req, res, next) {
         work: result
       })
     })
-}
-exports.workCreateGet = function (req, res) {
-  res.send('work create form')
-}
-exports.workCreatePost = function (req, res) {
-  res.send('work create POST')
-}
-exports.workDeleteGet = function (req, res) {
-  res.send('work delete form')
-}
-exports.workDeletePost = function (req, res) {
-  res.send('work delete POST')
-}
-exports.workUpdateGet = function (req, res) {
-  res.send('work update form')
-}
-exports.workUpdatePost = function (req, res) {
-  res.send('work update POST')
 }
