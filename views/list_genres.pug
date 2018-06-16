@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p.m-3
-    ul
-      each genre in data
-        li
-          a(href='/catalog/genre/' + genre.name) #{genre.name}
-      else
-        li There are no genres.
+  h1 #{title} (#{total})
+
+  ol.mt-3
+    each genre in data
+      li
+        a(href='/catalog/genre/' + genre.name) #{genre.name}
+    else
+      li There are no genres.

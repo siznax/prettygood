@@ -28,6 +28,7 @@ exports.goodsList = function (req, res, next) {
       if (err) { return next(err) }
       res.render('list_goods', {
         title: 'Goods',
+        total: goods.length,
         data: goods
       })
     })

@@ -1,15 +1,18 @@
 extends layout
 
 block content
-  h1.mb-3 Genre: #{genre.name}
+  h1.mb-3 #{title} (#{total})
 
   h3 Goods
-  ul
+
+  ol.mt-3
     each good in goods
       li
         a(href='/catalog/goods/' + good._id) #{good.title}
+
   h3 Works
-  ul
+
+  ol.mt-3
     each work in works
       li
         a(href='/catalog/work/' + work._id) #{work.title}

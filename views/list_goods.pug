@@ -1,13 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p.m-3
-    ul
-      each good in data
-        li.
-          #[a(href='/catalog/goods/' + good.id) #{good.title}]
-          (#{good.year}) #{good.source}
+  h1 #{title} (#{total})
 
-      else
-        li There are no goods.
+  ol.mt-3
+    each good in data
+      li.
+        #[a(href='/catalog/goods/' + good.id) #{good.title}]
+        (#{good.year}) #{good.source}
+    else
+      li There are no goods.

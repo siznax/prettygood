@@ -11,6 +11,7 @@ exports.worksList = function (req, res, next) {
     if (err) { return next(err) }
     res.render('list_works', {
       title: 'Works',
+      total: results.albums + results.books + results.film,
       albums: results.albums,
       books: results.books,
       film: results.film
@@ -26,7 +27,8 @@ exports.worksMediatypeList = function (req, res, next) {
       .exec(function (err, results) {
         if (err) { return next(err) }
         res.render('list_media', {
-          title: 'Works: ' + mediatype,
+          title: mediatype[0].toUpperCase() + mediatype.slice(1, mediatype.length),
+          total: results.length,
           data: results
         })
       })

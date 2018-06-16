@@ -1,8 +1,10 @@
 extends layout
 
 block content
-  h1.mb-3 #{title}
+  h1 #{title} (#{total})
 
-  ul
+  ol.mt-3
     each work in data
       li #[a(href='/catalog/work/' + work._id) #{work.title}]
+    else
+      li There are none.

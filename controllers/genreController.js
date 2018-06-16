@@ -12,6 +12,7 @@ exports.genreList = function (req, res, next) {
       if (err) { return next(err) }
       res.render('list_genres', {
         title: 'Genres',
+        total: genres.length,
         data: genres
       })
     })
@@ -47,7 +48,8 @@ exports.genreDetail = function (req, res, next) {
   function (err, results) {
     if (err) { return next(err) }
     res.render('detail_genre', {
-      title: 'Genre detail',
+      title: 'Genre: ' + req.params.name,
+      total: results.goods.length + results.works.length,
       genre: results.genre,
       goods: results.goods,
       works: results.works

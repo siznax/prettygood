@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1.mb-3 #{title}
+  h1 #{title} (#{total})
 
-  ul.mb-3
+  ul.mt-3
     li
       a(href='/catalog/works/albums') Albums
         span.ml-2.badge.badge-light #{albums}

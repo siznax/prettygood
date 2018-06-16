@@ -1,18 +1,15 @@
 extends layout
 
 block content
-  h1= title
+  h1.mb-3 #{title}
 
-  if error
-    p Error getting counts
-  else
-    ul
-      li
-        a(href='/catalog/goods') Goods
-        span.ml-2.badge.badge-light !{data.goodsCount}
-      li
-        a(href='/catalog/works') Works
-        span.ml-2.badge.badge-light !{data.workCount}
-      li
-        a(href='/catalog/genres') Genres
-        span.ml-2.badge.badge-light !{data.genreCount}
+  ul
+    li
+      a(href='/catalog/goods') Goods
+      span.ml-2.badge.badge-light !{data.goodsCount}
+    li
+      a(href='/catalog/works') Works
+      span.ml-2.badge.badge-light !{data.workCount}
+    li
+      a(href='/catalog/genres') Genres
+      span.ml-2.badge.badge-light !{data.genreCount}
