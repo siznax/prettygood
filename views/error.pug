@@ -5,7 +5,8 @@ block content
     h1= error.status
   else
     h1 By the Devil's hoofs!
-  p
-    b= message
+
+  p #[b #{message}]
+
   if !error.status
-    pre #{error.stack}
+    pre.p-3.bg-light #{error.stack}
