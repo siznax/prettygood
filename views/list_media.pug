@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  h1 #{title} (#{total})
-
-  ol.mt-3
-    each work in data
-      li #[a(href='/catalog/work/' + work._id) #{work.title}]
+  div.d-flex.justify-content-center
+    if data.length
+      ol.mt-3
+        each work in data
+          li #[a(href='/catalog/work/' + work._id) #{work.title}]
     else
-      li There are none.
+      p None

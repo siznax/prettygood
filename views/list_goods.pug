@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  h1 #{title} (#{total})
-
-  ol.mt-3
-    each good in data
-      li.
-        #[a(href='/catalog/goods/' + good.id) #{good.title}]
-        (#{good.year}) #{good.source}
-    else
-      li There are no goods.
+  if data.length
+    div.d-flex.justify-content-center
+      ol.mt-3
+        each good in data
+          li.
+            #[a(href='/catalog/goods/' + good.id) #{good.title}]
+              (#{good.year}) #{good.source}
+  else
+    p There are no goods.
