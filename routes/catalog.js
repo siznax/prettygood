@@ -1,11 +1,14 @@
 var express = require('express')
 var router = express.Router()
 
+var adminController = require('../controllers/adminController')
+var genreController = require('../controllers/genreController')
 var goodsController = require('../controllers/goodsController')
 var workController = require('../controllers/workController')
-var genreController = require('../controllers/genreController')
 
-router.get('/', goodsController.index) // GET catalog home page.
+router.get('/', goodsController.index)
+router.get('/admin', adminController.index)
+
 router.get('/goods/create', goodsController.goodsCreateGet)
 router.post('/goods/create', goodsController.goodsCreatePost)
 router.get('/goods/:id/delete', goodsController.goodsDeleteGet)
