@@ -5,7 +5,7 @@ exports.worksList = function (req, res, next) {
   async.parallel({
     albums: function (cb) {Works.count({mediatype: 'albums'}, cb)},
     books: function (cb) {Works.count({mediatype: 'books'}, cb)},
-    film: function (cb) {Works.count({mediatype: 'film'}, cb)}
+    film: function (cb) {Works.count({mediatype: 'films'}, cb)}
   },
   function (err, results) {
     if (err) { return next(err) }
@@ -21,7 +21,7 @@ exports.worksList = function (req, res, next) {
 
 exports.worksMediatypeList = function (req, res, next) {
   var mediatype = req.params.mediatype
-  if (['albums', 'books', 'film'].includes(mediatype)) {
+  if (['albums', 'books', 'films'].includes(mediatype)) {
     Works
       .find({mediatype: mediatype})
       .exec(function (err, results) {

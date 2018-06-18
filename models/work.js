@@ -6,7 +6,7 @@ module.exports = mongoose.model('Work', {
   description: String,
   genre: [{type: ObjectId, ref: 'Genre'}],
   language: {type: String, default: 'English'},
-  mediatype: {type: String, enum: ['albums', 'books', 'film'], required: true},
+  mediatype: {type: String, enum: ['albums', 'books', 'films'], required: true},
   title: {type: String, required: true},
   url: String,
   year: {type: String, required: true}
