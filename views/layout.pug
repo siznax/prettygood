@@ -16,29 +16,20 @@ html(lang='en')
       script(src='/javascripts/validate.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div.d-flex.justify-content-center.p-4.bg-dark
+      button#nav-albums.btn.btn-outline-light.mr-3 Albums
+      button#nav-books.btn.btn-outline-light.mr-3 Books
+      button#nav-films.btn.btn-outline-light Films
+    if env.DEVMODE
+      div.d-flex.justify-content-center.p-3.bg-light.mb-3
+        a.btn.btn-secondary.mr-2(href='/catalog/works') Works
+        a.btn.btn-secondary.mr-2(href='/catalog/genres') Genres
+        a.btn.btn-secondary.mr-2(href='/catalog/goods') Goods
+        a.btn.btn-primary(href='/catalog/goods/create') New
     div.container
       div.row
         div.col
-        div.col-8.m-3
-          nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.rounded
-            a.navbar-brand(href='/catalog') PG
-            button.navbar-toggler(type="button",
-              data-toggle="collapse",
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation")
-                span.navbar-toggler-icon
-            div#navbarSupportedContent.collapse.navbar-collapse
-              ul.navbar-nav.mr-auto
-                li.nav-item
-                  a.nav-link(href="/catalog/works/albums") Albums
-                li.nav-item
-                  a.nav-link(href="/catalog/works/books") Books
-                li.nav-item
-                  a.nav-link(href="/catalog/works/film") Film
-                li.nav-item
-                  a.nav-link.mx-5(href="/catalog/admin") Admin
-          div.mt-3.p-3
-            block content
+        div.col-8.d-flex.justify-content-center
+          block content
         div.col
+  script(src='/javascripts/navigate.js')
