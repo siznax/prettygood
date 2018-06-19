@@ -1,6 +1,8 @@
 extends layout
 
 block content
-  ul
-    each work in works
-      li #{work.title} (#{work.year}) #{work.creators}
+  div.d-flex.justify-content-center
+    ol
+      each work in works
+        li
+          a(href='/catalog/work/' + work._id) #{work.title}
