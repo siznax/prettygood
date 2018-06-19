@@ -47,10 +47,9 @@ exports.genreDetail = function (req, res, next) {
   ],
   function (err, results) {
     if (err) { return next(err) }
+    var total = results.goods.length + results.works.length
     res.render('detail_genre', {
-      title: 'Genre: ' + req.params.name,
-      total: results.goods.length + results.works.length,
-      genre: results.genre,
+      title: ['Genre:', req.params.name, '(' + total + ')'].join(' '),
       goods: results.goods,
       works: results.works
     })

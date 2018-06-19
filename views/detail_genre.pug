@@ -1,18 +1,16 @@
 extends layout
 
 block content
-  h1.mb-3 #{title} (#{total})
+  h1 #{title}
 
   h3 Goods
-
-  ol.mt-3
+  ol
     each good in goods
       li
         a(href='/catalog/goods/' + good._id) #{good.title}
 
   h3 Works
-
-  ol.mt-3
+  ol
     each work in works
       li
         a(href='/catalog/work/' + work._id) #{work.title}
