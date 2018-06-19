@@ -2,9 +2,10 @@ extends layout
 
 block content
   div.d-flex.justify-content-center
-    if data.length
-      ol.mt-3
-        each work in data
-          li #[a(href='/catalog/work/' + work._id) #{work.title}]
+    if works.length
+      ol
+        each work in works
+          li
+            a(href='/catalog/work/' + work._id) #{work.title}
     else
-      p None
+      p None found

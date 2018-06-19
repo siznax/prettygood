@@ -23,6 +23,7 @@ router.get('/genres', genreController.genreList)
 
 router.get('/work/:id', workController.workDetail)
 router.get('/works/:mediatype', workController.worksMediatypeList)
+router.get('/works/:mediatype/:genre', workController.worksMediatypeGenreList)
 router.get('/works', workController.worksList)
 
 module.exports = router
