@@ -3,9 +3,12 @@ extends layout
 block content
 
   div.d-flex.justify-content-center
-    a.mr-3(href='/catalog/works/albums') Albums
-      span.ml-1.badge.badge-light #{albums}
-    a.mr-3(href='/catalog/works/books') Books
-      span.ml-1.badge.badge-light #{books}
-    a(href='/catalog/works/film') Film
-      span.ml-1.badge.badge-light #{film}
+    h3
+      a.mr-3(href='/catalog/works/albums') Albums
+        span.ml-1.badge.badge-light #{albums}
+    h3
+      a.mr-3(href='/catalog/works/books') Books
+        span.ml-1.badge.badge-light #{books}
+    h3
+      a(href='/catalog/works/films') Films
+        span.ml-1.badge.badge-light #{film}
