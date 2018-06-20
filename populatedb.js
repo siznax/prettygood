@@ -24,7 +24,7 @@ var goodsData = {
   'source': 'Google Search',
   'year': '2018',
   'title': 'Google Top Classic Books',
-  'genre': ['Literature', 'Fiction', 'Classics'],
+  'genre': ['literature', 'fiction', 'classics'],
   'works': {
     1: {
       'title': 'Nineteen Eighty-Four',
