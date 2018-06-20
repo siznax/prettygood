@@ -11,10 +11,13 @@ router.get('/admin', adminController.index)
 
 router.get('/goods/create', goodsController.goodsCreateGet)
 router.post('/goods/create', goodsController.goodsCreatePost)
+
 router.get('/goods/:id/delete', goodsController.goodsDeleteGet)
 router.post('/goods/:id/delete', goodsController.goodsDeletePost)
+
 router.get('/goods/:id/update', goodsController.goodsUpdateGet)
 router.post('/goods/:id/update', goodsController.goodsUpdatePost)
+
 router.get('/goods/:id', goodsController.goodsDetail)
 router.get('/goods', goodsController.goodsList)
 
