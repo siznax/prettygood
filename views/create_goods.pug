@@ -14,7 +14,7 @@ block content
         div.input-group
           div.input-group-prepend
             label.input-group-text(for='mediatype') Mediatype
-          select#mediatype.custom-select
+          select#mediatype.custom-select(name='mediatype')
             option albums
             option books
             option film
@@ -45,14 +45,17 @@ block content
       div.input-group-prepend
         span.input-group-text Genre
       input#genre.form-control(type='text', name='genre',
-        placeholder='Literature, Science Fiction', minlength='2', maxlength='32', required)
+        placeholder='Literature, Science Fiction',
+        minlength='2', maxlength='32', required)
       div.invalid-feedback One to three comma separated values
 
     div.input-group.mb-3
       div.input-group-prepend
         span.input-group-text Works
-      textarea#works.form-control(aria-label="Works", rows="5",
-        placeholder='* Title (year) Creators\n* Title (year) Creators\n* Title (year) Creators', required)
+      textarea#works.form-control(name="works", rows="5",
+        placeholder='* Title (year) Creators\n* Title (year) Creators',
+        minlength='5', maxlength='1024', required)
+      div.invalid-feedback Works is required
 
     div.form-group.row.d-flex.justify-content-center
       button.btn.btn-primary(type='submit') Save
