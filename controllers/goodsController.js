@@ -2,10 +2,13 @@
 
 var async = require('async')
 var mongoose = require('mongoose')
+var helper = require('./goodsFormHelper.js')
+
+const {body, validationResult} = require('express-validator/check')
+const {sanitizeBody} = require('express-validator/filter')
 
 const Goods = require('../models/goods')
 const Work = require('../models/work')
-const Genre = require('../models/genre')
 
 exports.index = function (req, res, next) {
   Work.find({}, 'title year creator')
@@ -79,12 +82,84 @@ exports.goodsCreateGet = function (req, res, next) {
   })
 }
 
-exports.goodsCreatePost = function (req, res) {
-  const {body,validationResult} = require('express-validator/check')
-  const {sanitizeBody} = require('express-validator/filter')
+exports.goodsCreatePost = [
+  body('title')
+    .trim().withMessage('Title is required.')
+    .isLength({min: 2, max: 80}).withMessage('Title must be 2-80 characters.'),
+  sanitizeBody('title').trim().escape(),
 
-  res.send('goods create POST')
-}
+  body('source')
+    .trim().withMessage('Source is required.')
+    .isLength({min: 2, max: 32}).withMessage('Source must be 2-32 characters.'),
+  sanitizeBody('source').trim().escape(),
+
+  body('year')
+    .trim().withMessage('Year is required.')
+    .matches(/^\d+$/).withMessage('Year must be numeric.')
+    .isLength({min: 1, max: 4}).withMessage('Year must be 1-4 digits.'),
+  sanitizeBody('year').trim().escape(),
+
+  body('genre')
+    .trim().withMessage('Genre is required.')
+    .isLength({min: 2, max: 80}).withMessage('Genre must be 2-80 characters.'),
+  sanitizeBody('genre').trim().escape(),
+
+  body('works')
+    .trim().withMessage('Works is required.')
+    .isLength({min: 5, max: 1024}).withMessage('Works must be 5-1024 characters.'),
+  sanitizeBody('works').trim().escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req)
+
+    var goods = new Goods({
+      title: req.body.title,
+      source: req.body.source,
+      year: req.body.year,
+      description: req.body.description,
+      genre: req.body.genre,
+      works: req.body.works
+    })
+
+    // render form again with validation errors
+    if (!errors.isEmpty()) {
+      res.render('create_goods', {goods: goods, errors: errors.array()})
+      return
+    }
+
+    // SAVE goods: upsert genres, upsert works, save goods
+    async.waterfall([
+      function (callback) {
+        var genres = helper.parseFormGenres(req.body.genre)
+        helper.createGenresTask(genres, function (err, genreIds) {
+          if (err) return next(err)
+          callback(null, genreIds)
+        })
+      },
+      function (genreIds, callback) {
+        var works = helper.parseFormWorks(req.body.works, genreIds,
+          req.body.mediatype)
+        helper.createWorksTask(works, function (err, worksMap) {
+          if (err) return next(err)
+          callback(null, genreIds, worksMap)
+        })
+      },
+      function (genreIds, worksMap, callback) {
+        goods.genre = genreIds
+        goods.works = worksMap
+        helper.createGoodsTask(goods, function (err, goodsId) {
+          if (err) return next(err)
+          callback(null, goodsId)
+        })
+      }
+    ],
+    function (err, goodsId) {
+      if (err) return next(err)
+      res.redirect('/catalog/goods/')
+    })
+  }
+]
+
 exports.goodsDeleteGet = function (req, res) {
   res.send('goods delete form')
 }
