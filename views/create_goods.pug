@@ -40,7 +40,7 @@ block content
       input#genre.form-control(type='text', name='genre',
         placeholder='Literature, Science Fiction',
         minlength='2', maxlength='32', required)
-      div.invalid-feedback One to three comma separated values
+      div.invalid-feedback 2-80 characters
 
     div.input-group.mb-3
       div.input-group-prepend
@@ -48,7 +48,7 @@ block content
       textarea#works.form-control(name="works", rows="5",
         placeholder='* Title (year) Creators\n* Title (year) Creators',
         minlength='5', maxlength='1024', required)
-      div.invalid-feedback Works is required
+      div.invalid-feedback 5-1024 characters.
 
     div.form-group.row.d-flex.justify-content-center
       button.btn.btn-primary(type='submit') Save
