@@ -24,7 +24,7 @@ exports.workStub = function (workStr) {
 
 // returns genre list from form input string
 exports.parseFormGenres = function (genreStr) {
-  return genreStr.split(',').map(x => x.trim().toLowerCase())
+  return genreStr.split(',').map(x => x.trim().toLowerCase()).filter(x => x)
 }
 
 // returns works map from form input string
@@ -34,7 +34,7 @@ exports.parseFormWorks = function (workStr, genreIds, mediatype) {
   var workStars = workStr.split('*').map(x => x.trim()).filter(x => x)
   console.log('+ workStars:\n', workStars)
   for (var i = 0; i < workStars.length; i++) {
-    var found = workStars[i].match(/^(.*)\(([^\)]*)\)(.*)$/)
+    var found = workStars[i].match(/^(.*)\(([^)]*)\)(.*)$/)
     var work = {
       title: found[1].trim(),
       year: found[2].trim(),
