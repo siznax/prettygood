@@ -1,6 +1,8 @@
 var async = require('async')
 var mongoose = require('mongoose')
 var ObjectId = mongoose.Types.ObjectId
+var debug = require('debug')
+var log = debug('prettygood:goodsFormHelper')
 
 const Goods = require('../models/goods')
 const Work = require('../models/work')
@@ -29,10 +31,10 @@ exports.parseFormGenres = function (genreStr) {
 
 // returns works map from form input string
 exports.parseFormWorks = function (workStr, genreIds, mediatype) {
-  console.log('modelWorks')
+  log('modelWorks')
   var works = {}
   var workStars = workStr.split('*').map(x => x.trim()).filter(x => x)
-  console.log('+ workStars:\n', workStars)
+  log('+ workStars:\n', workStars)
   for (var i = 0; i < workStars.length; i++) {
     var found = workStars[i].match(/^(.*)\(([^)]*)\)(.*)$/)
     var work = {
@@ -43,14 +45,14 @@ exports.parseFormWorks = function (workStr, genreIds, mediatype) {
       mediatype: mediatype
     }
     works[i + 1] = work
-    console.log(' + regex found:\n', found)
+    log(' + regex found:\n', found)
   }
-  console.log('+ works:\n', works)
+  log('+ works:\n', works)
   return works
 }
 
 exports.createGenresTask = function (genres, callback) {
-  console.log('createGenres')
+  log('createGenres')
   async.each(genres, function (genre, callback) {
     createGenre(genre, callback)
   },
@@ -61,7 +63,7 @@ exports.createGenresTask = function (genres, callback) {
 }
 
 exports.createWorksTask = function (works, callback) {
-  console.log('createWorks')
+  log('createWorks')
   async.eachOf(works, function (work, index, callback) {
     createWork(index, work, callback)
   },
@@ -72,7 +74,7 @@ exports.createWorksTask = function (works, callback) {
 }
 
 exports.createGoodsTask = function (goods, callback) {
-  console.log('createGoods')
+  log('createGoods')
   createGoods(goods, callback)
 }
 
@@ -88,7 +90,7 @@ function createGenre (name, callback) {
 
     if (found) {
       genreIds.push(found._id)
-      console.log('+ found genre:', found._id)
+      log('+ found genre:', found._id)
       return callback(null, found._id)
     }
 
@@ -97,7 +99,7 @@ function createGenre (name, callback) {
 
     genre.save(function (err) {
       if (err) { return callback(err, null) }
-      console.log('+ saved genre:', genre)
+      log('+ saved genre:', genre)
       genreIds.push(id)
       callback(null, id)
     })
@@ -116,7 +118,7 @@ function createWork (rank, data, callback) {
 
     if (found) {
       workIds[rank] = found._id
-      console.log('+ found work: ', found._id)
+      log('+ found work: ', found._id)
       return callback(null, found._id)
     }
 
@@ -126,7 +128,7 @@ function createWork (rank, data, callback) {
 
     work.save(function (err) {
       if (err) { return callback(err, null) }
-      console.log('+ saved work:', work)
+      log('+ saved work:', work)
       workIds[rank] = id
       callback(null, id)
     })
@@ -146,7 +148,7 @@ function createGoods (doc, callback) {
     if (found) {
       Goods.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
-        console.log('+ updated goods:', doc)
+        log('+ updated goods:', doc)
         return callback(null, JSON.stringify(res))
       })
       return // by the devil's hoofs!
@@ -155,7 +157,7 @@ function createGoods (doc, callback) {
     var goods = new Goods(doc)
     goods.save(function (err) {
       if (err) { return callback(err, null) }
-      console.log('+ saved goods:', goods)
+      log('+ saved goods:', goods)
       callback(null, goods._id)
     })
   })

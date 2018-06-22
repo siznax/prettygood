@@ -3,6 +3,8 @@
 var async = require('async')
 var mongoose = require('mongoose')
 var helper = require('./goodsFormHelper.js')
+var debug = require('debug')
+var log = debug('prettygood:goodsController')
 
 const {body, validationResult} = require('express-validator/check')
 const {sanitizeBody} = require('express-validator/filter')
@@ -130,23 +132,29 @@ exports.goodsCreatePost = [
     // SAVE goods: upsert genres, upsert works, save goods
     async.waterfall([
       function (callback) {
+        log('goodsCreatePost: createGenres')
         var genres = helper.parseFormGenres(req.body.genre)
+        log('+ genres: %o', genres)
         helper.createGenresTask(genres, function (err, genreIds) {
           if (err) return next(err)
           callback(null, genreIds)
         })
       },
       function (genreIds, callback) {
+        log('goodsCreatePost: createWorks')
         var works = helper.parseFormWorks(req.body.works, genreIds,
           req.body.mediatype)
+        log('+ works:', works)
         helper.createWorksTask(works, function (err, worksMap) {
           if (err) return next(err)
           callback(null, genreIds, worksMap)
         })
       },
       function (genreIds, worksMap, callback) {
+        log('goodsCreatePost: createGoods')
         goods.genre = genreIds
         goods.works = worksMap
+        log('+ goods:', goods)
         helper.createGoodsTask(goods, function (err, goodsId) {
           if (err) return next(err)
           callback(null, goodsId)
