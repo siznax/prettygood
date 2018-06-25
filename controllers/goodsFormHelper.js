@@ -34,7 +34,7 @@ exports.parseFormWorks = function (workStr, genreIds, mediatype) {
   log('modelWorks')
   var works = {}
   var workStars = workStr.split('*').map(x => x.trim()).filter(x => x)
-  log('+ workStars:\n', workStars)
+  log('+ workStars: %o', workStars)
   for (var i = 0; i < workStars.length; i++) {
     var found = workStars[i].match(/^(.*)\(([^)]*)\)(.*)$/)
     var work = {
@@ -45,9 +45,8 @@ exports.parseFormWorks = function (workStr, genreIds, mediatype) {
       mediatype: mediatype
     }
     works[i + 1] = work
-    log(' + regex found:\n', found)
+    log(' + regex found: %o', found)
   }
-  log('+ works:\n', works)
   return works
 }
 
@@ -90,7 +89,7 @@ function createGenre (name, callback) {
 
     if (found) {
       genreIds.push(found._id)
-      log('+ found genre:', found._id)
+      log('+ found genre: %o', found._id)
       return callback(null, found._id)
     }
 
@@ -118,7 +117,7 @@ function createWork (rank, data, callback) {
 
     if (found) {
       workIds[rank] = found._id
-      log('+ found work: ', found._id)
+      log('+ found work: %o', found._id)
       return callback(null, found._id)
     }
 
@@ -128,7 +127,7 @@ function createWork (rank, data, callback) {
 
     work.save(function (err) {
       if (err) { return callback(err, null) }
-      log('+ saved work:', work)
+      log('+ saved work: %o', work)
       workIds[rank] = id
       callback(null, id)
     })
@@ -148,7 +147,7 @@ function createGoods (doc, callback) {
     if (found) {
       Goods.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
-        log('+ updated goods:', doc)
+        log('+ updated goods: %o', doc)
         return callback(null, JSON.stringify(res))
       })
       return // by the devil's hoofs!
@@ -157,7 +156,7 @@ function createGoods (doc, callback) {
     var goods = new Goods(doc)
     goods.save(function (err) {
       if (err) { return callback(err, null) }
-      log('+ saved goods:', goods)
+      log('+ saved goods: %o', goods)
       callback(null, goods._id)
     })
   })

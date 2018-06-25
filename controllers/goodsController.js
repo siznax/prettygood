@@ -144,7 +144,7 @@ exports.goodsCreatePost = [
         log('goodsCreatePost: createWorks')
         var works = helper.parseFormWorks(req.body.works, genreIds,
           req.body.mediatype)
-        log('+ works:', works)
+        log('+ works: %o', works)
         helper.createWorksTask(works, function (err, worksMap) {
           if (err) return next(err)
           callback(null, genreIds, worksMap)
@@ -154,7 +154,7 @@ exports.goodsCreatePost = [
         log('goodsCreatePost: createGoods')
         goods.genre = genreIds
         goods.works = worksMap
-        log('+ goods:', goods)
+        log('+ goods: %o', goods)
         helper.createGoodsTask(goods, function (err, goodsId) {
           if (err) return next(err)
           callback(null, goodsId)
