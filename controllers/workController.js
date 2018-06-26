@@ -1,6 +1,7 @@
 var async = require('async')
 var mongoose = require('mongoose')
 var ObjectId = mongoose.Types.ObjectId
+var titleCase = require('to-title-case')
 
 var Works = require('../models/work')
 var Genres = require('../models/genre')
@@ -35,7 +36,7 @@ exports.worksMediatypeList = function (req, res, next) {
     .exec(function (err, results) {
       if (err) { return next(err) }
       res.render('list_media', {
-        title: mediatype,
+        title: titleCase(mediatype),
         total: results.length,
         works: results
       })
