@@ -13,17 +13,26 @@ const Goods = require('../models/goods')
 const Work = require('../models/work')
 
 exports.index = function (req, res, next) {
-  Work.find({}, 'title year creator')
-    .exec(function (err, works) {
-      if (err) { return next(err) }
-      res.render('index', {title: 'prettygood', works: works})
+  async.parallel({
+    albums: function (cb) {Work.find({mediatype: 'albums'}, cb)},
+    books: function (cb) {Work.find({mediatype: 'books'}, cb)},
+    films: function (cb) {Work.find({mediatype: 'films'}, cb)}
+  },
+  function (err, results) {
+    if (err) return next(err)
+    res.render('index', {
+      title: 'Catalog',
+      albums: results.albums,
+      books: results.books,
+      films: results.films
     })
+  })
 }
 
 exports.goodsList = function (req, res, next) {
   Goods.find({}, 'title year source')
     .exec(function (err, goods) {
-      if (err) { return next(err) }
+      if (err) return next(err)
       res.render('list_goods', {
         title: 'Goods',
         total: goods.length,
@@ -53,13 +62,13 @@ exports.goodsDetail = function (req, res, next) {
         .map(x => mongoose.Types.ObjectId(x))
       Work.find({_id: {$in: ids}}, '-genre -language')
         .exec(function (err, works) {
-          if (err) { return next(err) }
+          if (err) return next(err)
           callback(null, {'goods': goods, 'works': works, 'ranks': ranks})
         })
     }
   ],
   function (err, result) {
-    if (err) { return next(err) }
+    if (err) return next(err)
 
     // map works by _id to display in ranked order
     var worksMap = {}

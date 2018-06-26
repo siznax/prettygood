@@ -1,9 +1,29 @@
 extends layout
 
 block content
-  div.d-flex.justify-content-center
-    ol
-      each work in works
-        li.
-          #[a(href='/catalog/work/' + work._id) #{work.title}]
-            (#{work.year}) #{work.creator}
+  h3 Albums
+  ol
+    each work in albums
+      li.
+        #[a(href='/catalog/work/' + work._id) #{work.title}]
+          (#{work.year}) #{work.creator}
+    else
+      p None found
+
+  h3 Books
+  ol
+    each work in books
+      li.
+        #[a(href='/catalog/work/' + work._id) #{work.title}]
+          (#{work.year}) #{work.creator}
+    else
+      p None found
+
+  h3 Films
+  ol
+    each work in films
+      li.
+        #[a(href='/catalog/work/' + work._id) #{work.title}]
+          (#{work.year}) #{work.creator}
+    else
+      p None found
