@@ -5,7 +5,8 @@ block content
     if works.length
       ol
         each work in works
-          li
-            a(href='/catalog/work/' + work._id) #{work.title}
+          li.
+            #[a(href='/catalog/work/' + work._id) #{work.title}]
+              (#{work.year}) #{work.creator}
     else
       p None found
