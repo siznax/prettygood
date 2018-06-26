@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  if data.length
-    div.d-flex.justify-content-center
-      each genre in data
-        a.btn.btn-success.mr-3(href='/catalog/genre/' + genre.name,
-          role='button') #{genre.name}
-  else
-    p None found.
+  div.d-flex.justify-content-center
+    if data.length
+        each genre in data
+          a.btn.btn-success.mr-3(href='/catalog/genre/' + genre.name,
+            role='button') #{genre.name}
+    else
+      p None found
