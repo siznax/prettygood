@@ -16,7 +16,7 @@ exports.index = function (req, res, next) {
   Work.find({}, 'title year creator')
     .exec(function (err, works) {
       if (err) { return next(err) }
-      res.render('index', {works: works})
+      res.render('index', {title: 'prettygood', works: works})
     })
 }
 
