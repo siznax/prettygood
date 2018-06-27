@@ -1,16 +1,18 @@
 extends layout
 
 block content
-  h1 #{title}
+  h1.text-center #{title}
 
-  h3 Goods
-  ol
-    each good in goods
-      li
-        a(href='/catalog/goods/' + good._id) #{good.title}
+  h3.text-center Goods
+  div.d-flex.justify-content-center
+    ol
+      each good in goods
+        li
+          a(href='/catalog/goods/' + good._id) #{good.title}
 
-  h3 Works
-  ol
-    each work in works
-      li
-        a(href='/catalog/work/' + work._id) #{work.title}
+  h3.text-center Works
+  div.d-flex.justify-content-center
+    ol
+      each work in works
+        li
+          a(href='/catalog/work/' + work._id) #{work.title}
