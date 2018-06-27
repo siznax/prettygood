@@ -12,7 +12,9 @@ block content
         td #{work.description}
       tr
         td #[b Genre:]
-        td #{work.genre}
+        td
+          each item in genre
+            a.btn.btn-secondary.mr-2.btn-sm(href='/catalog/genre/' + item) #{item}
       tr
         td #[b Language:]
         td #{work.language}

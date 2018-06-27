@@ -8,9 +8,9 @@ var Genres = require('../models/genre')
 
 exports.worksList = function (req, res, next) {
   async.parallel({
-    albums: function (cb) {Works.count({mediatype: 'albums'}, cb)},
-    books: function (cb) {Works.count({mediatype: 'books'}, cb)},
-    film: function (cb) {Works.count({mediatype: 'films'}, cb)}
+    albums: function (cb) { Works.count({mediatype: 'albums'}, cb) },
+    books: function (cb) { Works.count({mediatype: 'books'}, cb) },
+    film: function (cb) { Works.count({mediatype: 'films'}, cb) }
   },
   function (err, results) {
     if (err) { return next(err) }
@@ -40,7 +40,7 @@ exports.worksMediatypeList = function (req, res, next) {
         total: results.length,
         works: results
       })
-  })
+    })
 }
 
 exports.worksMediatypeGenreList = function (req, res, next) {
@@ -85,11 +85,15 @@ exports.worksMediatypeGenreList = function (req, res, next) {
 exports.workDetail = function (req, res, next) {
   Works
     .findById(req.params.id)
+    .populate('genre')
     .exec(function (err, result) {
       if (err) { return next(err) }
+      var genre = result.genre.map(x => x.name)
+      console.log(genre)
       res.render('detail_work', {
         title: 'Work detail',
-        work: result
+        work: result,
+        genre: genre
       })
     })
 }
