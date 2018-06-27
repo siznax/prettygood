@@ -1,27 +1,30 @@
 extends layout
 
 block content
-  h1.mb-3 Work: #{work.title}
-
-  div
-  dl(class="row")
-    dt.col-sm-2  Creator:
-    dd.col-sm-10 #{work.creator} (#{work.year})
-
-    dt.col-sm-2  Mediatype:
-    dd.col-sm-10 #{work.mediatype}
-
-    dt.col-sm-2  Language:
-    dd.col-sm-10 #{work.language}
-
-    if work.description
-      dt.col-sm-2  Description:
-      dd.col-sm-10 #{work.description}
-
-    if work.url
-      dt.col-sm-2  Url:
-      dd.col-sm-10 #{work.url}
-
-    if work.image
-      dt.col-sm-2  Image:
-      dd.col-sm-10 #{work.image}
+  h3.mb-3.text-center Work: #{work.title}
+  div.d-flex.justify-content-center
+    table.table-sm.table-bordered.table-hover
+      tr
+        td #[b Creator:]
+        td #{work.creator}
+      tr
+        td #[b Description:]
+        td #{work.description}
+      tr
+        td #[b Genre:]
+        td #{work.genre}
+      tr
+        td #[b Language:]
+        td #{work.language}
+      tr
+        td #[b Mediatype:]
+        td #{work.mediatype}
+      tr
+        td #[b Title:]
+        td #{work.title}
+      tr
+        td #[b Url:]
+        td #{work.url}
+      tr
+        td #[b Year:]
+        td #{work.year}
