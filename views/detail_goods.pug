@@ -1,35 +1,44 @@
 extends layout
 
 block content
-  h1.mb-3 Goods: #{goods.title}
-
-  p #[i #{goods.description}]
-
-  dl.row
-    dt.col-sm-2  Source:
-    dd.col-sm-10
-      if goods.url
-        a(href=goods.url target="_blank") #{goods.source}
-      else
-        #{goods.source}
-      |  (#{goods.year})
-
-    dt.col-sm-2  Mediatype:
-    dd.col-sm-10 #{goods.mediatype}
-
-    dt.col-sm-2  Genres:
-    dd.col-sm-10
-      each name in genres
-        a.btn-sm.btn.btn-outline-primary.mr-1(role='button',
-          href='/catalog/genre/' + name) #{name}
-
-    dt.col-sm-2  Works:
-    dd.col-sm-10
-      ol.px-3.py-2
-        each id, rank in ranks
-          li(value='#{rank}')
-            a(href='/catalog/work/' + id) #{works[id].title}
-
-    if goods.image
-      dt.col-sm-2  Image:
-      dd.col-sm-10 #{goods.image}
+  h3.mb-3.text-center Goods: #{goods.title}
+  div.d-flex.justify-content-center
+    table.table-sm.table-bordered.table-hover
+      tr
+        td #[b Description:]
+        td #{goods.description}]
+      tr
+        td #[b Genres:]
+        td
+          each name in genres
+            a.btn.btn-secondary.mr-1.btn-sm(role='button',
+              href='/catalog/genre/' + name) #{name}
+      tr
+        td #[b Image:]
+        td #{goods.image}
+      tr
+        td #[b Mediatype:]
+        td #{goods.mediatype}
+      tr
+        td #[b Source:]
+        td
+          if goods.url
+            a(href=goods.url) #{goods.source}
+          else
+            #{goods.source}
+      tr
+        td #[b Title:]
+        td #{goods.title}
+      tr
+        td #[b Url:]
+        td #{goods.url}
+      tr
+        td #[b Works:]
+        td
+          ol.px-3.py-2
+            each id, rank in ranks
+              li(value='#{rank}')
+                a(href='/catalog/work/' + id) #{works[id].title}
+      tr
+        td #[b Year:]
+        td #{goods.year}
