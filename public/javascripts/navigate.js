@@ -27,7 +27,6 @@
 
   window.addEventListener('load', function () {
     var path = window.location.pathname
-    console.log(path)
     if (path == '/catalog/works/albums') {
       $('#nav-albums').addClass('active')
       $('#nav-books').removeClass('active')
