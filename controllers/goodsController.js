@@ -97,30 +97,28 @@ exports.goodsCreateGet = function (req, res, next) {
 }
 
 exports.goodsCreatePost = [
+  // see also pre-submit validation: public/javascripts/validate.js
   body('title')
     .trim().withMessage('Title is required.')
     .isLength({min: 2, max: 80}).withMessage('Title must be 2-80 characters.'),
-  sanitizeBody('title').trim().escape(),
-
   body('source')
     .trim().withMessage('Source is required.')
     .isLength({min: 2, max: 32}).withMessage('Source must be 2-32 characters.'),
-  sanitizeBody('source').trim().escape(),
-
   body('year')
     .trim().withMessage('Year is required.')
     .matches(/^\d+$/).withMessage('Year must be numeric.')
     .isLength({min: 1, max: 4}).withMessage('Year must be 1-4 digits.'),
-  sanitizeBody('year').trim().escape(),
-
   body('genre')
     .trim().withMessage('Genre is required.')
     .isLength({min: 2, max: 80}).withMessage('Genre must be 2-80 characters.'),
-  sanitizeBody('genre').trim().escape(),
-
   body('works')
     .trim().withMessage('Works is required.')
     .isLength({min: 5, max: 1024}).withMessage('Works must be 5-1024 characters.'),
+
+  sanitizeBody('title').trim().escape(),
+  sanitizeBody('source').trim().escape(),
+  sanitizeBody('year').trim().escape(),
+  sanitizeBody('genre').trim().escape(),
   sanitizeBody('works').trim().escape(),
 
   (req, res, next) => {
