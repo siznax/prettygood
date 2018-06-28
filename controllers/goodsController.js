@@ -70,6 +70,9 @@ exports.goodsDetail = function (req, res, next) {
   function (err, result) {
     if (err) return next(err)
 
+    log('goodsDetail')
+    log('+ goods: %o', result.goods)
+
     // map works by _id to display in ranked order
     var worksMap = {}
     result.works.forEach(function (work) {
