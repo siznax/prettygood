@@ -14,9 +14,9 @@ const Work = require('../models/work')
 
 exports.index = function (req, res, next) {
   async.parallel({
-    albums: function (cb) {Work.find({mediatype: 'albums'}, cb)},
-    books: function (cb) {Work.find({mediatype: 'books'}, cb)},
-    films: function (cb) {Work.find({mediatype: 'films'}, cb)}
+    albums: function (cb) { Work.find({mediatype: 'albums'}, cb) },
+    books: function (cb) { Work.find({mediatype: 'books'}, cb) },
+    films: function (cb) { Work.find({mediatype: 'films'}, cb) }
   },
   function (err, results) {
     if (err) return next(err)
