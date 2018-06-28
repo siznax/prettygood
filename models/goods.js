@@ -5,7 +5,7 @@ module.exports = mongoose.model('Goods', {
   description: String,
   genre: [{type: ObjectId, ref: 'Genre', required: true}],
   image: String,
-  mediatype: {type: String},
+  mediatype: {type: String, required: true},
   source: {type: String, required: true},
   title: {type: String, required: true},
   url: String,
