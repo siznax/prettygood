@@ -85,7 +85,7 @@ function createGenre (name, callback) {
   var terms = {name: name}
 
   Genre.findOne(terms, function (err, found) {
-    if (err) { return callback(err, null) }
+    if (err) return callback(err, null)
 
     if (found) {
       genreIds.push(found._id)
@@ -97,7 +97,7 @@ function createGenre (name, callback) {
     var genre = new Genre({_id: id, name: name})
 
     genre.save(function (err) {
-      if (err) { return callback(err, null) }
+      if (err) return callback(err, null)
       log('+ saved genre:', genre)
       genreIds.push(id)
       callback(null, id)
@@ -113,7 +113,7 @@ function createWork (rank, data, callback) {
   }
 
   Work.findOne(terms, function (err, found) {
-    if (err) { return callback(err, null) }
+    if (err) return callback(err, null)
 
     if (found) {
       workIds[rank] = found._id
@@ -126,7 +126,7 @@ function createWork (rank, data, callback) {
     var work = new Work(data)
 
     work.save(function (err) {
-      if (err) { return callback(err, null) }
+      if (err) return callback(err, null)
       log('+ saved work: %o', work)
       workIds[rank] = id
       callback(null, id)
@@ -142,22 +142,39 @@ function createGoods (doc, callback) {
   }
 
   Goods.findOne(terms, function (err, found) {
-    if (err) { return callback(err, null) }
+    if (err) return callback(err, null)
 
+    if (found) {
+      return callback(new Error('Goods exists: ' + JSON.stringify(terms)), null)
+    }
+
+    var goods = new Goods(doc)
+    goods.save(function (err) {
+      if (err) return callback(err, null)
+      log('+ saved goods: %o', goods)
+      callback(null, goods._id)
+    })
+  })
+}
+
+// STUB: Not Implemented
+function updateGoods (doc, callback) {
+  var terms = {
+    title: doc.title,
+    source: doc.source,
+    year: doc.year
+  }
+
+  Goods.findOne(terms, function (err, found) {
+    if (err) return callback(err, null)
     if (found) {
       Goods.updateOne(terms, doc, function (err, res) {
         if (err) return callback(err, null)
         log('+ updated goods: %o', doc)
         return callback(null, JSON.stringify(res))
       })
-      return // by the devil's hoofs!
+    } else {
+      return callback(new Error('Not found:' + JSON.stringify(doc)), null)
     }
-
-    var goods = new Goods(doc)
-    goods.save(function (err) {
-      if (err) { return callback(err, null) }
-      log('+ saved goods: %o', goods)
-      callback(null, goods._id)
-    })
   })
 }
