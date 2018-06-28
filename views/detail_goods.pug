@@ -18,7 +18,8 @@ block content
         td #{goods.image}
       tr
         td #[b Mediatype:]
-        td #{goods.mediatype}
+        td
+          a(href='/catalog/works/' + goods.mediatype) #{goods.mediatype}
       tr
         td #[b Source:]
         td
