@@ -38,8 +38,9 @@ block content
         td
           ol.px-3.py-2
             each id, rank in ranks
-              li(value='#{rank}')
-                a(href='/catalog/work/' + id) #{works[id].title}
+              li(value='#{rank}').
+                #[a(href='/catalog/work/' + id) #{works[id].title}]
+                  (#{works[id].year}) #{works[id].creator}
       tr
         td #[b Year:]
         td #{goods.year}
