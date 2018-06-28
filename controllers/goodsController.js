@@ -127,12 +127,13 @@ exports.goodsCreatePost = [
     const errors = validationResult(req)
 
     var goods = new Goods({
-      title: req.body.title,
-      source: req.body.source,
-      year: req.body.year,
       description: req.body.description,
       genre: req.body.genre,
-      works: req.body.works
+      mediatype: req.body.mediatype,
+      source: req.body.source,
+      title: req.body.title,
+      works: req.body.works,
+      year: req.body.year
     })
 
     // render form again with validation errors
